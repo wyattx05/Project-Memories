@@ -16,24 +16,20 @@ A way to download your Snapchat memories with the metadata and captions applied,
 
 ## Screenshots
 
-<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-  <div style="text-align: center;">
-    <img src="Screenshots/Home.png" width="200" />
-    <p><strong>Home</strong></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="Screenshots/Media Viewer.png" width="200" />
-    <p><strong>Media Viewer</strong></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="Screenshots/Places.png" width="200" />
-    <p><strong>Places</strong></p>
-  </div>
-  <div style="text-align: center;">
-    <img src="Screenshots/Years.png" width="200" />
-    <p><strong>Years</strong></p>
-  </div>
-</div>
+<table>
+  <tr>
+    <td><img src="Screenshots/Home.png" alt="Home" width="350" style="height: auto;"></td>
+    <td><img src="Screenshots/Media Viewer.png" alt="Media Viewer" width="350" style="height: auto;"></td>
+    <td><img src="Screenshots/Places.png" alt="Places" width="350" style="height: auto;"></td>
+    <td><img src="Screenshots/Years.png" alt="Years" width="350" style="height: auto;"></td>
+  </tr>
+  <tr>
+    <td align="center">Home</td>
+    <td align="center">Media Viewer</td>
+    <td align="center">Places</td>
+    <td align="center">Years</td>
+  </tr>
+</table>
 
 ## How to Use
 
