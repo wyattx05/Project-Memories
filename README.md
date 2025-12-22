@@ -14,6 +14,27 @@ A way to download your Snapchat memories with the metadata and captions applied,
 - ✨ **Flashbacks** - Get memory flashbacks just like in Snap!
 - ⚡ **Fast Loading** - Just load the folder you downloaded and watch them all appear!
 
+## Screenshots
+
+<div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+  <div style="text-align: center;">
+    <img src="Screenshots/Home.png" width="200" />
+    <p><strong>Home</strong></p>
+  </div>
+  <div style="text-align: center;">
+    <img src="Screenshots/Media Viewer.png" width="200" />
+    <p><strong>Media Viewer</strong></p>
+  </div>
+  <div style="text-align: center;">
+    <img src="Screenshots/Places.png" width="200" />
+    <p><strong>Places</strong></p>
+  </div>
+  <div style="text-align: center;">
+    <img src="Screenshots/Years.png" width="200" />
+    <p><strong>Years</strong></p>
+  </div>
+</div>
+
 ## How to Use
 
 ### Step 1: Download Your Snapchat Memories Data
@@ -61,7 +82,7 @@ A way to download your Snapchat memories with the metadata and captions applied,
 This project is still actively under development. Here's what to expect:
 
 ### Current State
-- Basic memory browsing and search functionality working
+- Basic memory browsing working
 - Multiple view modes (Home, Years, Places)
 - Location-based grouping and searching
 - Date filtering
@@ -70,6 +91,8 @@ This project is still actively under development. Here's what to expect:
 - May be slower with thousands of memories (optimization in progress)
 - Some edge cases with date parsing
 - Mobile responsiveness still being improved
+- Search is not working
+- Have to reload memories everytime you visit the site
 
 ### Upcoming Features & Improvements
 - Performance optimization for large memory collections
