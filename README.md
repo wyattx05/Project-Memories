@@ -15,6 +15,7 @@ A way to download your Snapchat memories with the metadata and captions applied,
 - ⚡ **Fast Loading** - Just load the folder you downloaded and watch them all appear!
 
 ## Screenshots
+### (ignore my random memories they are for example)
 
 <table>
   <tr>
@@ -93,9 +94,6 @@ This project is still actively under development. Here's what to expect:
 ### Upcoming Features & Improvements
 - Performance optimization for large memory collections
 - Enhanced search filters (media type, date range, etc.)
-- Memory tagging and custom organization
-- Export functionality
-- Batch operations
 - Improved mobile support
 - Backend server for persistent storage
 - Full web app deployment
