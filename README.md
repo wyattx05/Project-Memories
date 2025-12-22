@@ -12,7 +12,6 @@ A way to download your Snapchat memories with the metadata and captions applied,
 - 🎬 **Media Support** - View images and videos with full metadata
 - 📊 **Detailed Metadata** - See date, media type, location, and filename for each memory
 - ✨ **Flashbacks** - Get memory flashbacks just like in Snap!
-- ⚡ **Fast Loading** - Just load the folder you downloaded and watch them all appear!
 
 ## Screenshots
 ### (ignore my random memories they are for example)
@@ -67,7 +66,7 @@ A way to download your Snapchat memories with the metadata and captions applied,
 
 ## Interface Guide
 
-- **Home Tab** - Flashbacks (4 most recent) and Recently Added memories
+- **Home Tab** - Flashbacks and Recently Added memories
 - **Years Tab** - Memories organized by year
 - **Places Tab** - Memories grouped by location
 - **Search Bar** - Filter across all tabs by date or location
@@ -86,7 +85,6 @@ This project is still actively under development. Here's what to expect:
 
 ### Known Limitations
 - May be slower with thousands of memories (optimization in progress)
-- Some edge cases with date parsing
 - Mobile responsiveness still being improved
 - Search is not working
 - Have to reload memories everytime you visit the site
