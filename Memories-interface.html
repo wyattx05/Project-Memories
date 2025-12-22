@@ -597,7 +597,7 @@
         // Cache for geocoded locations
         const geocodeCache = {};
 
-        // Reverse geocode coordinates to city/state
+        // Reverse geocode coordinates to detailed location
         async function getLocationName(locationString) {
             if (!locationString) return 'Unknown location';
             
@@ -618,17 +618,43 @@
                 
                 let locationName = 'Unknown location';
                 if (data.address) {
-                    const city = data.address.city || data.address.town || data.address.village || '';
-                    const state = data.address.state || '';
+                    const addr = data.address;
                     
-                    if (city && state) {
-                        locationName = `${city}, ${state}`;
-                    } else if (city) {
-                        locationName = city;
-                    } else if (state) {
-                        locationName = state;
-                    } else if (data.address.country) {
-                        locationName = data.address.country;
+                    // Build location from most specific to least specific
+                    const locationParts = [];
+                    
+                    // Add neighborhood/suburb/district if available
+                    if (addr.neighbourhood) {
+                        locationParts.push(addr.neighbourhood);
+                    } else if (addr.suburb) {
+                        locationParts.push(addr.suburb);
+                    } else if (addr.district) {
+                        locationParts.push(addr.district);
+                    }
+                    
+                    // Add city/town/village
+                    if (addr.city) {
+                        locationParts.push(addr.city);
+                    } else if (addr.town) {
+                        locationParts.push(addr.town);
+                    } else if (addr.village) {
+                        locationParts.push(addr.village);
+                    }
+                    
+                    // Add state/county
+                    if (addr.state) {
+                        locationParts.push(addr.state);
+                    } else if (addr.county) {
+                        locationParts.push(addr.county);
+                    }
+                    
+                    // Add country if no other info
+                    if (locationParts.length === 0 && addr.country) {
+                        locationParts.push(addr.country);
+                    }
+                    
+                    if (locationParts.length > 0) {
+                        locationName = locationParts.join(', ');
                     }
                 }
                 
@@ -667,44 +693,52 @@
                         fileMap[baseName][file.name] = file;
                     }
                     
+                    // Collect all promises for file reading
+                    const fileReadPromises = [];
+                    
                     for (let file of files) {
                         if (file.name.endsWith('.json')) {
-                            try {
-                                const text = await file.text();
-                                const data = JSON.parse(text);
-                                
-                                const filename = file.name;
-                                const baseName = filename.split('.')[0];
-                                
-                                let mediaFile = null;
-                                let mediaUrl = null;
-                                const mediaExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.mp4', '.mov', '.webm'];
-                                
-                                for (let ext of mediaExtensions) {
-                                    const mediaName = baseName + ext;
-                                    if (fileMap[baseName] && fileMap[baseName][mediaName]) {
-                                        mediaFile = fileMap[baseName][mediaName];
-                                        mediaUrl = URL.createObjectURL(mediaFile);
-                                        break;
+                            fileReadPromises.push((async () => {
+                                try {
+                                    const text = await file.text();
+                                    const data = JSON.parse(text);
+                                    
+                                    const filename = file.name;
+                                    const baseName = filename.split('.')[0];
+                                    
+                                    let mediaFile = null;
+                                    let mediaUrl = null;
+                                    const mediaExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.mp4', '.mov', '.webm'];
+                                    
+                                    for (let ext of mediaExtensions) {
+                                        const mediaName = baseName + ext;
+                                        if (fileMap[baseName] && fileMap[baseName][mediaName]) {
+                                            mediaFile = fileMap[baseName][mediaName];
+                                            mediaUrl = URL.createObjectURL(mediaFile);
+                                            break;
+                                        }
                                     }
+
+                                    memoriesData.push({
+                                        filename: filename,
+                                        date: data['Date'] || '',
+                                        mediaType: data['Media Type'] || 'Unknown',
+                                        location: data['Location'] || 'Unknown location',
+                                        displayLocation: data['Location'] || 'Unknown location',
+                                        mediaFile: mediaFile,
+                                        mediaUrl: mediaUrl,
+                                        mediaName: mediaFile ? mediaFile.name : null,
+                                        rawData: data
+                                    });
+                                } catch (e) {
+                                    console.error('Error parsing file:', file.name, e);
                                 }
-                                
-                                memoriesData.push({
-                                    filename: filename,
-                                    date: data['Date'] || '',
-                                    mediaType: data['Media Type'] || 'Unknown',
-                                    location: data['Location'] || 'Unknown location',
-                                    displayLocation: data['Location'] || 'Unknown location',
-                                    mediaFile: mediaFile,
-                                    mediaUrl: mediaUrl,
-                                    mediaName: mediaFile ? mediaFile.name : null,
-                                    rawData: data
-                                });
-                            } catch (e) {
-                                console.error('Error parsing file:', file.name, e);
-                            }
+                            })());
                         }
                     }
+                    
+                    // Wait for all file reads to complete
+                    await Promise.all(fileReadPromises);
                     
                     memoriesData.sort((a, b) => {
                         const dateA = parseMemoryDate(a.date);
@@ -729,7 +763,16 @@
                 return;
             }
             
-            const flashbacks = memoriesData.slice(0, 4);
+            // Get 4 random memories
+            let flashbacks = [];
+            const memoriesToChooseFrom = [...memoriesData];
+            const count = Math.min(4, memoriesToChooseFrom.length);
+            
+            for (let i = 0; i < count; i++) {
+                const randomIndex = Math.floor(Math.random() * memoriesToChooseFrom.length);
+                flashbacks.push(memoriesToChooseFrom[randomIndex]);
+                memoriesToChooseFrom.splice(randomIndex, 1);
+            }
             
             flashbacks.forEach((memory) => {
                 const item = document.createElement('div');
