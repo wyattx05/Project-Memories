@@ -1,4 +1,4 @@
-# Project-Memories
+# <img src="assets/icons/Icon-Design final.png" alt="Project Memories Icon" width="48" height="48" align="center"> Project-Memories
 
 With Snapchat now making you pay to store your memories, I wanted to create an easy way for anyone to save and view their memories in an interface similar to the Snapchat experience we all love.
 
