@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' data: blob:; connect-src 'self' https://nominatim.openstreetmap.org;">
+    <title>Snapchat Memories</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">Memories</div>
+            <div class="header-icons">
+                <button class="icon-btn" id="source-btn" title="Select memories folder">📁</button>
+                <button class="icon-btn" id="clear-btn" title="Clear all memories">🗑️</button>
+                <button class="icon-btn" id="theme-toggle">🌙</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="home">Home</button>
+            <button class="tab" data-tab="years">Years</button>
+            <button class="tab" data-tab="places">Places</button>
+        </div>
+
+        <!-- Content -->
+        <div class="content" id="content">
+            <!-- Home Tab Content -->
+            <div id="home-tab" class="tab-content active">
+                <!-- Flashbacks Section -->
+                <div class="section-title">Flashbacks</div>
+                <div class="flashbacks-container">
+                    <div class="flashbacks-grid" id="flashbacks-grid">
+                        <!-- Flashback items will be generated here -->
+                    </div>
+                </div>
+
+                <!-- Recently Added Section -->
+                <div class="section-title">Recently Added</div>
+                <div class="recently-added-container">
+                    <div class="memories-grid" id="memories-grid">
+                        <!-- Memory items will be generated here -->
+                    </div>
+                </div>
+
+                <div class="empty-state" id="empty-state">
+                    No memories yet. Click 📁 to select your memories folder!
+                </div>
+            </div>
+
+            <!-- Years Tab Content -->
+            <div id="years-tab" class="tab-content">
+                <div id="years-container">
+                    <!-- Years grouped sections will be generated here -->
+                </div>
+
+                <div class="empty-state" id="years-empty-state">
+                    No memories by year yet.
+                </div>
+            </div>
+
+            <!-- Places Tab Content -->
+            <div id="places-tab" class="tab-content">
+                <div id="places-container">
+                    <!-- Places grouped sections will be generated here -->
+                </div>
+
+                <div class="empty-state" id="places-empty-state">
+                    No memories by place yet.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Memory Modal -->
+    <div id="memory-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <div class="modal-media" id="modal-media"></div>
+            <div class="modal-metadata">
+                <div class="modal-metadata-item">
+                    <div class="modal-metadata-label">Date</div>
+                    <div class="modal-metadata-value" id="metadata-date"></div>
+                </div>
+                <div class="modal-metadata-item">
+                    <div class="modal-metadata-label">Media Type</div>
+                    <div class="modal-metadata-value" id="metadata-type"></div>
+                </div>
+                <div class="modal-metadata-item">
+                    <div class="modal-metadata-label">Location</div>
+                    <div class="modal-metadata-value" id="metadata-location"></div>
+                </div>
+                <div class="modal-metadata-item">
+                    <div class="modal-metadata-label">Filename</div>
+                    <div class="modal-metadata-value" id="metadata-filename"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Python Console Modal (for script output) -->
+    <div id="python-console" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="console-close-btn">&times;</button>
+            <div style="padding: 20px; overflow-y: auto; flex: 1;">
+                <h2 style="margin-bottom: 16px;">Script Output</h2>
+                <pre id="console-output" style="background: #1a1a1a; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 12px; white-space: pre-wrap; word-wrap: break-word;"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript files -->
+    <script src="app.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>

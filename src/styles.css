@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+.container {
+    max-width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    transition: background-color 0.3s;
+}
+
+body.light-mode .container {
+    background-color: #f5f5f5;
+}
+
+/* Header */
+.header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+body.light-mode .header {
+    border-bottom-color: #e0e0e0;
+}
+
+.header-title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.header-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+body.light-mode .icon-btn {
+    color: #000;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 40px;
+    padding: 0 20px;
+    border-bottom: 1px solid #1a1a1a;
+    overflow-x: auto;
+}
+
+body.light-mode .tabs {
+    border-bottom-color: #e0e0e0;
+}
+
+.tab {
+    padding: 12px 0;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+}
+
+.tab.active {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+
+body.light-mode .tab {
+    color: #999;
+}
+
+body.light-mode .tab.active {
+    color: #000;
+    border-bottom-color: #000;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* Tab Content Visibility */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Flashbacks Section */
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #aaa;
+    padding: 20px 20px 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body.light-mode .section-title {
+    color: #999;
+}
+
+.flashbacks-container {
+    padding: 0 20px 20px;
+}
+
+.flashbacks-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.flashbacks-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.flashbacks-grid::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+body.light-mode .flashbacks-grid::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.flashbacks-grid::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 2px;
+}
+
+.flashback-item {
+    position: relative;
+    flex: 0 0 140px;
+    height: 240px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+body.light-mode .flashback-item {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.flashback-item:hover {
+    transform: scale(0.98);
+}
+
+.flashback-item-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+}
+
+.flashback-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    padding: 8px 8px 6px;
+    font-size: 11px;
+    color: #ccc;
+    display: none;
+}
+
+/* Recently Added Section */
+.recently-added-container {
+    padding: 0 20px;
+}
+
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.memory-item {
+    position: relative;
+    height: 180px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+body.light-mode .memory-item {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.memory-item:hover {
+    transform: scale(0.98);
+}
+
+.memory-item-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+}
+
+/* Placeholder Image */
+.placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+}
+
+body.light-mode .placeholder {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    color: #555;
+}
+
+/* Scrollbar Styling */
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+body.light-mode .content::-webkit-scrollbar-track {
+    background: #f5f5f5;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Empty State */
+.empty-state {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: #666;
+    font-size: 14px;
+}
+
+.empty-state.show {
+    display: flex;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    display: flex;
+    width: 95%;
+    height: 90%;
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+body.light-mode .modal-content {
+    background-color: #f5f5f5;
+}
+
+.modal-media {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.modal-media img,
+.modal-media video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.modal-metadata {
+    width: 300px;
+    padding: 24px;
+    background-color: #0a0a0a;
+    overflow-y: auto;
+    border-left: 1px solid #1a1a1a;
+}
+
+body.light-mode .modal-metadata {
+    background-color: #f0f0f0;
+    border-left-color: #e0e0e0;
+}
+
+.modal-metadata-item {
+    margin-bottom: 20px;
+}
+
+.modal-metadata-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+body.light-mode .modal-metadata-label {
+    color: #999;
+}
+
+.modal-metadata-value {
+    font-size: 14px;
+    color: #fff;
+    word-break: break-word;
+}
+
+body.light-mode .modal-metadata-value {
+    color: #000;
+}
+
+.modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    font-size: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Thumbnail Image Styles */
+.memory-item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Grouped Layout Styles */
+.group-section {
+    margin-bottom: 24px;
+}
+
+.group-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    padding: 16px 20px 12px;
+    background-color: #0a0a0a;
+}
+
+body.light-mode .group-header {
+    color: #000;
+    background-color: #f0f0f0;
+}
+
+.group-memories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+    padding: 0 20px 16px;
+}

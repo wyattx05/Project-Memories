@@ -1,27 +1,27 @@
 # Project-Memories
 
-A way to download your Snapchat memories with the metadata and captions applied, then view them in a beautiful Snapchat-like interface. Relive your memories even if you can't pay to keep them on Snapchat!
+With Snapchat now making you pay to store your memories, I wanted to create an easy way for anyone to save and view their memories in an interface similar to the Snapchat experience we all love.
 
-## Features
+This repository includes Python scripts to download and curate your memories (preserving all metadata and captions) plus an Electron desktop app that provides a Snapchat-like interface for browsing your saved memories offline.
 
-- 📱 **Memories Like Interface** - Snapchat Memories like interface with a dark & light mode
-- 🗓️ **Multiple View Modes** - Home, Years, and Places tabs to browse your memories
-- 🔍 **Smart Search** - Search by date or location (Under Development)
-- 🗺️ **Location Grouping** - Automatically groups memories by location with reverse geocoding
-- 📅 **Year Grouping** - Organize and view memories by year
-- 🎬 **Media Support** - View images and videos with full metadata
-- 📊 **Detailed Metadata** - See date, media type, location, and filename for each memory
-- ✨ **Flashbacks** - Get memory flashbacks just like in Snap!
+## ✨ Features
+
+- 📱 **Snapchat-Like Interface** - Familiar dark & light mode UI
+- 🗓️ **Multiple View Modes** - Home, Years, and Places tabs
+- 🗺️ **Location Grouping** - Automatic reverse geocoding for place names
+- 📅 **Year Organization** - Browse memories by year and month
+- 🎬 **Full Media Support** - View images and videos with complete metadata
+- ✨ **Flashbacks** - Random memory flashbacks just like Snapchat
+- 🔒 **Privacy First** - Everything runs locally, your data never leaves your device
 
 ## Screenshots
-### (ignore my random memories they are for example)
 
 <table>
   <tr>
-    <td><img src="Screenshots/Home.png" alt="Home" width="350" style="height: auto;"></td>
-    <td><img src="Screenshots/Media Viewer.png" alt="Media Viewer" width="350" style="height: auto;"></td>
-    <td><img src="Screenshots/Places.png" alt="Places" width="350" style="height: auto;"></td>
-    <td><img src="Screenshots/Years.png" alt="Years" width="350" style="height: auto;"></td>
+    <td><img src="assets/screenshots/Home.png" alt="Home" width="350" style="height: auto;"></td>
+    <td><img src="assets/screenshots/Media Viewer.png" alt="Media Viewer" width="350" style="height: auto;"></td>
+    <td><img src="assets/screenshots/Places.png" alt="Places" width="350" style="height: auto;"></td>
+    <td><img src="assets/screenshots/Years.png" alt="Years" width="350" style="height: auto;"></td>
   </tr>
   <tr>
     <td align="center">Home</td>
@@ -31,86 +31,138 @@ A way to download your Snapchat memories with the metadata and captions applied,
   </tr>
 </table>
 
-## How to Use
+## 🚀 Quick Start (For Users)
 
-### Step 1: Download Your Snapchat Memories Data
+### Step 1: Download Your Snapchat Data
 
-1. Go to [Snapchat Settings](https://accounts.snapchat.com/accounts/downloadmydata) and request your data
-2. Snapchat will email you a download link with a JSON file containing all your memories metadata
+1. Visit [Snapchat's Download My Data](https://accounts.snapchat.com/accounts/downloadmydata)
+2. Request your data export
+3. Download the JSON file from the email Snapchat sends you
 
-### Step 2: Extract and Process Your Data
+### Step 2: Process Your Memories
 
-1. Run your JSON file through `download_snapchat_memories.py`:
-   ```bash
-   python download_snapchat_memories.py
-   ```
-   This will download all your memory media files
+Run the Python scripts in order:
 
-2. Run the downloaded folder through `apply_overlay_captions.py`:
-   ```bash
-   python apply_overlay_captions.py
-   ```
-   This adds captions and overlays to your memories (optional but recommended)
+```bash
+# 1. Download all media files
+python python/download_snapchat_memories.py <path-to-snapchat-json>
+
+# 2. Add captions/overlays (optional)
+python python/apply_overlay_captions.py <memories-folder>
+
+# 3. Add location names (optional)
+python python/add_location_names.py <memories-folder>
+```
 
 ### Step 3: View Your Memories
 
-1. Open `Memories-interface.html` in your web browser
-2. Click the 📁 button to select your processed memories folder
-3. Browse your memories!
+1. Download and install the app for your platform (see Releases)
+2. Open the app and click the 📁 button
+3. Select your processed memories folder
+4. Enjoy your memories offline!
 
-## Search Tips (Feature currently not working)
+## 🛠️ Tech Stack
 
-- **By Date:** Type "2025", "December", "Dec 11", or any date format
-- **By Location:** Type location names like "Monroe", "Richmond", "San Francisco", etc.
-- **Partial Matches:** Just start typing and results will filter in real-time
+**Desktop App:**
+- [Electron](https://www.electronjs.org/) - Cross-platform desktop framework
+- JavaScript (ES6+) - Application logic
+- HTML5/CSS3 - User interface
+- Node.js - Backend file operations
 
-## Interface Guide
+**Python Scripts:**
+- Python 3.x
+- `requests` - API calls for reverse geocoding
+- `Pillow` - Image processing for captions
 
-- **Home Tab** - Flashbacks and Recently Added memories
-- **Years Tab** - Memories organized by year
-- **Places Tab** - Memories grouped by location
-- **Search Bar** - Filter across all tabs by date or location
-- **🌙 Button** - Toggle between dark and light modes
-- **📁 Button** - Select your memories folder
+**APIs:**
+- [Nominatim](https://nominatim.org/) - OpenStreetMap reverse geocoding
 
-## Status: Under Development ⚠️
+## 💻 Development Setup
 
-This project is still actively under development. Here's what to expect:
+Want to modify the app or contribute? Here's how to get started:
 
-### Current State
-- Basic memory browsing working
-- Multiple view modes (Home, Years, Places)
-- Location-based grouping and searching
-- Date filtering
+### Prerequisites
 
-### Known Limitations
-- May be slower with thousands of memories (optimization in progress)
-- Mobile responsiveness still being improved
-- Search is not working
-- Have to reload memories everytime you visit the site
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [Python 3.x](https://www.python.org/downloads/)
+- Git
 
-### Upcoming Features & Improvements
-- Performance optimization for large memory collections
-- Enhanced search filters (media type, date range, etc.)
-- Improved mobile support
-- Backend server for persistent storage
-- Full web app deployment
+### Installation
 
-## Important Notes
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/Project-Memories.git
+   cd Project-Memories
+   ```
 
-⚠️ **Performance:** If you have thousands of memories, the interface may be slower. I am actively working on optimization.
+2. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
 
-📝 **Data Privacy:** This tool runs entirely in your browser. Your memories never leave your device unless you explicitly share them.
+3. **Set up Python environment (optional, for scripts):**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   pip install -r python/requirements.txt
+   ```
 
-## Requirements
+### Running in Development
 
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Python 3.x (for downloading and processing memories)
+**Start the Electron app:**
+```bash
+npm start
+```
 
-## Feedback & Bug Reports
+The app will launch in development mode with hot reloading.
 
-Found a bug or have a suggestion? Please let me know! I am actively developing this project and your feedback helps us improve.
+## 📝 Python Script Usage
 
+### download_snapchat_memories.py
+Downloads all media files from Snapchat export JSON:
+```bash
+python python/download_snapchat_memories.py <snapchat-json-file>
+```
 
+### apply_overlay_captions.py
+Adds captions and overlays to your memories:
+```bash
+python python/apply_overlay_captions.py <memories-folder>
+```
 
+### add_location_names.py
+Adds precise location names via reverse geocoding:
+```bash
+python python/add_location_names.py <memories-folder> [--force]
+```
+- Use `--force` to re-process files that already have location names
 
+## ⚠️ Current Limitations
+
+- Performance may degrade with 10,000+ memories (optimization ongoing)
+- Search functionality under development
+- Some edge cases in metadata parsing
+
+## 🗺️ Roadmap
+
+- [ ] Performance optimization for large collections
+- [ ] Advanced search (by location, date, media type)
+- [ ] Memory export functionality
+- [ ] Mobile companion app
+
+## 🔒 Privacy & Security
+
+- **100% Local:** All processing happens on your device
+- **No Tracking:** No analytics or telemetry
+- **No Cloud:** Your memories never leave your computer
+- **Open Source:** Fully auditable code
+
+## 💡 Acknowledgments
+
+- Inspired by the Snapchat Memories experience
+- Uses OpenStreetMap's Nominatim for location data
+- Built with Electron for cross-platform compatibility
+
+---
+
+**Note:** This is an independent project and is not affiliated with Snapchat Inc.

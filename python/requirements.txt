@@ -1,0 +1,3 @@
+# Python dependencies for Snapchat Memories scripts
+requests
+pillow
