@@ -35,9 +35,7 @@ This repository includes Python scripts to download and curate your memories (pr
 
 ### Step 1: Install the App
 
-**Download the latest release for your platform:**
-- [Download for macOS](https://github.com/wyattx05/Project-Memories/releases)
-- [Download for Windows](https://github.com/wyattx05/Project-Memories/releases)
+**[Download the latest release for your platform](https://github.com/wyattx05/Project-Memories/releases)**
 
 #### macOS Installation
 
@@ -57,12 +55,12 @@ cd /Applications
 
 # Remove the quarantine flag
 xattr -cr "Snapchat Memories Viewer.app"
-
-# Now you can open it normally
-open "Snapchat Memories Viewer.app"
 ```
 
-**Why does this happen?** This app is open-source and not signed with an Apple Developer account ($99/year). The app is completely safe - you can review the source code yourself!
+**Now you can open it normally**
+
+
+**Why does this happen?** This app is open-source and I do not have an Apple Developer Account. The app is completely safe - you can review the source code yourself!
 
 #### Windows Installation
 
@@ -113,57 +111,6 @@ python python/add_location_names.py <memories-folder>
 **APIs:**
 - [Nominatim](https://nominatim.org/) - OpenStreetMap reverse geocoding
 
-## 💻 Development Setup
-
-Want to modify the app or contribute? Here's how to get started:
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v16 or higher)
-- [Python 3.x](https://www.python.org/downloads/)
-- Git
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/Project-Memories.git
-   cd Project-Memories
-   ```
-
-2. **Install Node.js dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Set up Python environment (optional, for scripts):**
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   pip install -r python/requirements.txt
-   ```
-
-### Running in Development
-
-**Start the Electron app:**
-```bash
-npm start
-```
-
-The app will launch in development mode with hot reloading.
-
-## ⚠️ Current Limitations
-
-- Performance may degrade with 10,000+ memories (optimization ongoing)
-- Search functionality under development
-- Some edge cases in metadata parsing
-
-## 🔒 Privacy & Security
-
-- **100% Local:** All processing happens on your device
-- **No Tracking:** No analytics or telemetry
-- **No Cloud:** Your memories never leave your computer
-- **Open Source:** Fully auditable code
 
 ## 💡 Acknowledgments
 
