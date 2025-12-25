@@ -77,6 +77,12 @@ def reverse_geocode(lat, lon):
             
             if "address" in data:
                 address = data["address"]
+                display_name = data.get("display_name", "")
+                place_type = data.get("type", "")
+                osm_type = data.get("osm_type", "")
+                
+                # Debug: Print available address components
+                print(f"    Type: {place_type}, Available: {', '.join(address.keys())}")
                 
                 # Build precise location name with hierarchical approach
                 location_parts = []

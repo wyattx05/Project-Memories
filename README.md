@@ -68,14 +68,6 @@ open "Snapchat Memories Viewer.app"
 
 Download the installer and run it. Windows Defender might show a warning - click "More info" then "Run anyway."
 
-#### Linux Installation
-
-Download the AppImage, make it executable, and run:
-```bash
-chmod +x Snapchat-Memories-Viewer-*.AppImage
-./Snapchat-Memories-Viewer-*.AppImage
-```
-
 ### Step 2: Download Your Snapchat Data
 
 1. Visit [Snapchat's Download My Data](https://accounts.snapchat.com/accounts/downloadmydata)
@@ -96,6 +88,8 @@ python python/apply_overlay_captions.py <memories-folder>
 # 3. Add location names (optional)
 python python/add_location_names.py <memories-folder>
 ```
+- Use `--force` to re-process files that already have location names
+
 
 ### Step 4: View Your Memories
 
@@ -157,27 +151,6 @@ npm start
 ```
 
 The app will launch in development mode with hot reloading.
-
-## 📝 Python Script Usage
-
-### download_snapchat_memories.py
-Downloads all media files from Snapchat export JSON:
-```bash
-python python/download_snapchat_memories.py <snapchat-json-file>
-```
-
-### apply_overlay_captions.py
-Adds captions and overlays to your memories:
-```bash
-python python/apply_overlay_captions.py <memories-folder>
-```
-
-### add_location_names.py
-Adds precise location names via reverse geocoding:
-```bash
-python python/add_location_names.py <memories-folder> [--force]
-```
-- Use `--force` to re-process files that already have location names
 
 ## ⚠️ Current Limitations
 
