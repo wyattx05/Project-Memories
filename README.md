@@ -39,14 +39,13 @@ This repository includes Python scripts to download and curate your memories (pr
 
 #### macOS Installation
 
-⚠️ **Important for Mac users:** Since this app is not signed with an Apple Developer certificate, you'll see a security warning. Here's how to open it:
+⚠️ **Important for Mac users:** Since this app is not signed with an Apple Developer certificate, you'll see a security warning. Here's how to open it after installing the application:
 
-**Method 1 (Easiest):**
-1. Download and unzip the app
-2. Drag "Snapchat Memories Viewer.app" to your Applications folder
-3. **Right-click** (or Control-click) the app and select **"Open"**
-4. Click **"Open"** again in the security dialog
-5. The app will now open and be trusted for future use
+**Method 1:**
+
+1. **Right-click** (or Control-click) the app and select **"Open"**
+2. Click **"Open"** again in the security dialog
+3. The app will now open and be trusted for future use
 
 **Method 2 (Terminal):**
 ```bash
