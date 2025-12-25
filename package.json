@@ -36,11 +36,13 @@
     },
     "mac": {
       "target": [
-        "dmg"
+        "zip"
       ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
       "category": "public.app-category.photography",
-      "icon": "assets/icons/Apple-Icon.icns",
-      "identity": null
+      "icon": "assets/icons/Apple-Icon.icns"
     },
     "win": {
       "target": [

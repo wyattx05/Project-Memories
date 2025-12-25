@@ -33,13 +33,56 @@ This repository includes Python scripts to download and curate your memories (pr
 
 ## 🚀 Quick Start (For Users)
 
-### Step 1: Download Your Snapchat Data
+### Step 1: Install the App
+
+**Download the latest release for your platform:**
+- [Download for macOS](https://github.com/wyattx05/Project-Memories/releases)
+- [Download for Windows](https://github.com/wyattx05/Project-Memories/releases)
+
+#### macOS Installation
+
+⚠️ **Important for Mac users:** Since this app is not signed with an Apple Developer certificate, you'll see a security warning. Here's how to open it:
+
+**Method 1 (Easiest):**
+1. Download and unzip the app
+2. Drag "Snapchat Memories Viewer.app" to your Applications folder
+3. **Right-click** (or Control-click) the app and select **"Open"**
+4. Click **"Open"** again in the security dialog
+5. The app will now open and be trusted for future use
+
+**Method 2 (Terminal):**
+```bash
+# Navigate to where you saved the app
+cd /Applications
+
+# Remove the quarantine flag
+xattr -cr "Snapchat Memories Viewer.app"
+
+# Now you can open it normally
+open "Snapchat Memories Viewer.app"
+```
+
+**Why does this happen?** This app is open-source and not signed with an Apple Developer account ($99/year). The app is completely safe - you can review the source code yourself!
+
+#### Windows Installation
+
+Download the installer and run it. Windows Defender might show a warning - click "More info" then "Run anyway."
+
+#### Linux Installation
+
+Download the AppImage, make it executable, and run:
+```bash
+chmod +x Snapchat-Memories-Viewer-*.AppImage
+./Snapchat-Memories-Viewer-*.AppImage
+```
+
+### Step 2: Download Your Snapchat Data
 
 1. Visit [Snapchat's Download My Data](https://accounts.snapchat.com/accounts/downloadmydata)
 2. Request your data export
 3. Download the JSON file from the email Snapchat sends you
 
-### Step 2: Process Your Memories
+### Step 3: Process Your Memories
 
 Run the Python scripts in order:
 
@@ -54,12 +97,11 @@ python python/apply_overlay_captions.py <memories-folder>
 python python/add_location_names.py <memories-folder>
 ```
 
-### Step 3: View Your Memories
+### Step 4: View Your Memories
 
-1. Download and install the app for your platform (see Releases)
-2. Open the app and click the 📁 button
-3. Select your processed memories folder
-4. Enjoy your memories offline!
+1. Open the app and click the 📁 button
+2. Select your processed memories folder
+3. Enjoy your memories offline!
 
 ## 🛠️ Tech Stack
 
@@ -142,13 +184,6 @@ python python/add_location_names.py <memories-folder> [--force]
 - Performance may degrade with 10,000+ memories (optimization ongoing)
 - Search functionality under development
 - Some edge cases in metadata parsing
-
-## 🗺️ Roadmap
-
-- [ ] Performance optimization for large collections
-- [ ] Advanced search (by location, date, media type)
-- [ ] Memory export functionality
-- [ ] Mobile companion app
 
 ## 🔒 Privacy & Security
 
