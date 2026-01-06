@@ -79,23 +79,38 @@
     <div id="memory-modal" class="modal">
         <div class="modal-content">
             <button class="modal-close" id="modal-close-btn">&times;</button>
+            <button class="modal-nav modal-nav-prev" id="modal-prev-btn" title="Previous (←)">‹</button>
+            <button class="modal-nav modal-nav-next" id="modal-next-btn" title="Next (→)">›</button>
             <div class="modal-media" id="modal-media"></div>
             <div class="modal-metadata">
+                <div class="metadata-header">Details</div>
                 <div class="modal-metadata-item">
-                    <div class="modal-metadata-label">Date</div>
-                    <div class="modal-metadata-value" id="metadata-date"></div>
+                    <div class="metadata-icon">📅</div>
+                    <div class="metadata-content">
+                        <div class="modal-metadata-label">Date</div>
+                        <div class="modal-metadata-value" id="metadata-date"></div>
+                    </div>
                 </div>
                 <div class="modal-metadata-item">
-                    <div class="modal-metadata-label">Media Type</div>
-                    <div class="modal-metadata-value" id="metadata-type"></div>
+                    <div class="metadata-icon">🎬</div>
+                    <div class="metadata-content">
+                        <div class="modal-metadata-label">Media Type</div>
+                        <div class="modal-metadata-value" id="metadata-type"></div>
+                    </div>
                 </div>
                 <div class="modal-metadata-item">
-                    <div class="modal-metadata-label">Location</div>
-                    <div class="modal-metadata-value" id="metadata-location"></div>
+                    <div class="metadata-icon">📍</div>
+                    <div class="metadata-content">
+                        <div class="modal-metadata-label">Location</div>
+                        <div class="modal-metadata-value" id="metadata-location"></div>
+                    </div>
                 </div>
                 <div class="modal-metadata-item">
-                    <div class="modal-metadata-label">Filename</div>
-                    <div class="modal-metadata-value" id="metadata-filename"></div>
+                    <div class="metadata-icon">📄</div>
+                    <div class="metadata-content">
+                        <div class="modal-metadata-label">Filename</div>
+                        <div class="modal-metadata-value" id="metadata-filename"></div>
+                    </div>
                 </div>
             </div>
         </div>

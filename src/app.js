@@ -12,6 +12,10 @@ let memoriesData = [];
 // Cache for location formatting
 const locationCache = {};
 
+// Current displayed memory context
+let currentMemoryIndex = -1;
+let currentMemoryList = [];
+
 /**
  * Parse date string from JSON (format: "2025-12-11 00:57:27 UTC")
  * @param {string} dateString - Date string to parse
@@ -24,6 +28,36 @@ function parseMemoryDate(dateString) {
     const cleanDate = dateString.replace(' UTC', '').trim();
     const date = new Date(cleanDate);
     return date;
+}
+
+/**
+ * Calculate and format time ago from a date
+ * @param {Date} date - Date to calculate from
+ * @returns {string} Formatted time ago string (e.g., "2 years ago")
+ */
+function getTimeAgo(date) {
+    const now = new Date();
+    const diffMs = now - date;
+    const diffSeconds = Math.floor(diffMs / 1000);
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+    const diffYears = Math.floor(diffDays / 365);
+    
+    if (diffYears > 0) {
+        return `${diffYears} ${diffYears === 1 ? 'year' : 'years'} ago`;
+    } else if (diffMonths > 0) {
+        return `${diffMonths} ${diffMonths === 1 ? 'month' : 'months'} ago`;
+    } else if (diffDays > 0) {
+        return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+    } else if (diffHours > 0) {
+        return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+    } else if (diffMinutes > 0) {
+        return `${diffMinutes} ${diffMinutes === 1 ? 'minute' : 'minutes'} ago`;
+    } else {
+        return 'Just now';
+    }
 }
 
 /**
@@ -111,17 +145,22 @@ function generateFlashbacks() {
         memoriesToChooseFrom.splice(randomIndex, 1);
     }
     
-    flashbacks.forEach((memory) => {
+    // Use DocumentFragment for better performance
+    const fragment = document.createDocumentFragment();
+    
+    flashbacks.forEach((memory, index) => {
         const item = document.createElement('div');
         item.className = 'flashback-item';
         const date = parseMemoryDate(memory.date);
-        const monthYear = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        const timeAgo = getTimeAgo(date);
         
         if (memory.mediaUrl) {
             const isVideo = memory.mediaName && (memory.mediaName.endsWith('.mp4') || memory.mediaName.endsWith('.mov') || memory.mediaName.endsWith('.webm'));
             item.innerHTML = `
-                ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;"></video>' : '<img class="memory-item-thumbnail" style="width: 100%; height: 100%;">'}
-                <div class="flashback-label">${monthYear}</div>
+                ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;" preload="metadata"></video>' : '<img class="memory-item-thumbnail" style="width: 100%; height: 100%;" loading="lazy">'}
+                <div class="flashback-overlay">
+                    <div class="flashback-time-ago">${timeAgo}</div>
+                </div>
             `;
             if (isVideo) {
                 item.querySelector('video').src = memory.mediaUrl;
@@ -131,16 +170,20 @@ function generateFlashbacks() {
         } else {
             item.innerHTML = `
                 <div class="placeholder"></div>
-                <div class="flashback-label">${monthYear}</div>
+                <div class="flashback-overlay">
+                    <div class="flashback-time-ago">${timeAgo}</div>
+                </div>
             `;
         }
         
         item.addEventListener('click', () => {
-            openMemoryModal(memory);
+            openMemoryModal(memory, flashbacks, index);
         });
         
-        grid.appendChild(item);
+        fragment.appendChild(item);
     });
+    
+    grid.appendChild(fragment);
 }
 
 /**
@@ -157,7 +200,10 @@ function generateMemories() {
     
     document.getElementById('empty-state').classList.remove('show');
     
-    memoriesData.forEach((memory) => {
+    // Use DocumentFragment for better performance
+    const fragment = document.createDocumentFragment();
+    
+    memoriesData.forEach((memory, index) => {
         const item = document.createElement('div');
         item.className = 'memory-item';
         const date = parseMemoryDate(memory.date);
@@ -167,7 +213,7 @@ function generateMemories() {
             const isVideo = memory.mediaName && (memory.mediaName.endsWith('.mp4') || memory.mediaName.endsWith('.mov') || memory.mediaName.endsWith('.webm'));
             item.innerHTML = `
                 <div class="memory-item-content">
-                    ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;"></video>' : '<img class="memory-item-thumbnail">'}
+                    ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;" preload="metadata"></video>' : '<img class="memory-item-thumbnail" loading="lazy">'}
                 </div>
             `;
             if (isVideo) {
@@ -185,11 +231,13 @@ function generateMemories() {
         
         item.title = `${dateStr} - ${memory.mediaType}`;
         item.addEventListener('click', () => {
-            openMemoryModal(memory);
+            openMemoryModal(memory, memoriesData, index);
         });
         
-        grid.appendChild(item);
+        fragment.appendChild(item);
     });
+    
+    grid.appendChild(fragment);
 }
 
 /**
@@ -266,7 +314,10 @@ function generateYears() {
             const memoriesGrid = document.createElement('div');
             memoriesGrid.className = 'group-memories';
             
-            monthMemories.forEach((memory) => {
+            // Use DocumentFragment for better performance
+            const gridFragment = document.createDocumentFragment();
+            
+            monthMemories.forEach((memory, index) => {
                 const item = document.createElement('div');
                 item.className = 'memory-item';
                 
@@ -274,7 +325,7 @@ function generateYears() {
                     const isVideo = memory.mediaName && (memory.mediaName.endsWith('.mp4') || memory.mediaName.endsWith('.mov') || memory.mediaName.endsWith('.webm'));
                     item.innerHTML = `
                         <div class="memory-item-content">
-                            ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;"></video>' : '<img class="memory-item-thumbnail">'}
+                            ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;" preload="metadata"></video>' : '<img class="memory-item-thumbnail" loading="lazy">'}
                         </div>
                     `;
                     if (isVideo) {
@@ -291,11 +342,13 @@ function generateYears() {
                 }
                 
                 item.addEventListener('click', () => {
-                    openMemoryModal(memory);
+                    openMemoryModal(memory, monthMemories, index);
                 });
                 
-                memoriesGrid.appendChild(item);
+                gridFragment.appendChild(item);
             });
+            
+            memoriesGrid.appendChild(gridFragment);
             
             monthSection.appendChild(monthHeader);
             monthSection.appendChild(memoriesGrid);
@@ -355,7 +408,10 @@ function generatePlaces() {
         const memoriesGrid = document.createElement('div');
         memoriesGrid.className = 'group-memories';
         
-        memoriesAtLocation.forEach((memory) => {
+        // Use DocumentFragment for better performance
+        const gridFragment = document.createDocumentFragment();
+        
+        memoriesAtLocation.forEach((memory, index) => {
             const item = document.createElement('div');
             item.className = 'memory-item';
             
@@ -363,7 +419,7 @@ function generatePlaces() {
                 const isVideo = memory.mediaName && (memory.mediaName.endsWith('.mp4') || memory.mediaName.endsWith('.mov') || memory.mediaName.endsWith('.webm'));
                 item.innerHTML = `
                     <div class="memory-item-content">
-                        ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;"></video>' : '<img class="memory-item-thumbnail">'}
+                        ${isVideo ? '<video style="width: 100%; height: 100%; object-fit: cover;" preload="metadata"></video>' : '<img class="memory-item-thumbnail" loading="lazy">'}
                     </div>
                 `;
                 if (isVideo) {
@@ -380,11 +436,13 @@ function generatePlaces() {
             }
             
             item.addEventListener('click', () => {
-                openMemoryModal(memory);
+                openMemoryModal(memory, memoriesAtLocation, index);
             });
             
-            memoriesGrid.appendChild(item);
+            gridFragment.appendChild(item);
         });
+        
+        memoriesGrid.appendChild(gridFragment);
         
         section.appendChild(header);
         section.appendChild(memoriesGrid);
@@ -395,12 +453,27 @@ function generatePlaces() {
 /**
  * Open memory in modal
  * @param {Object} memory - Memory data to display
+ * @param {Array} memoryList - List of memories for navigation context
+ * @param {number} index - Current memory index in the list
  */
-function openMemoryModal(memory) {
+function openMemoryModal(memory, memoryList = null, index = -1) {
     const modal = document.getElementById('memory-modal');
     const modalMedia = document.getElementById('modal-media');
     const date = parseMemoryDate(memory.date);
     const isVideo = memory.mediaName && (memory.mediaName.endsWith('.mp4') || memory.mediaName.endsWith('.mov') || memory.mediaName.endsWith('.webm'));
+    
+    // Store navigation context
+    const isNavigating = currentMemoryList.length > 0 && modal.classList.contains('show');
+    currentMemoryList = memoryList || memoriesData;
+    currentMemoryIndex = index >= 0 ? index : currentMemoryList.indexOf(memory);
+    
+    // Update navigation button visibility
+    updateNavigationButtons();
+    
+    // Add transition effect when navigating between memories
+    if (isNavigating) {
+        modalMedia.classList.add('transitioning');
+    }
     
     modalMedia.innerHTML = '';
     
@@ -436,6 +509,11 @@ function openMemoryModal(memory) {
     locationElement.textContent = displayLoc;
     document.getElementById('metadata-filename').textContent = memory.filename;
     
+    // Remove transition class after animation
+    setTimeout(() => {
+        modalMedia.classList.remove('transitioning');
+    }, 250);
+    
     modal.classList.add('show');
 }
 
@@ -462,22 +540,100 @@ function setupTabSwitching() {
 }
 
 /**
+ * Update navigation button visibility and state
+ */
+function updateNavigationButtons() {
+    const prevBtn = document.getElementById('modal-prev-btn');
+    const nextBtn = document.getElementById('modal-next-btn');
+    
+    if (prevBtn && nextBtn) {
+        // Show/hide buttons based on position in list
+        prevBtn.style.display = currentMemoryIndex > 0 ? 'flex' : 'none';
+        nextBtn.style.display = currentMemoryIndex < currentMemoryList.length - 1 ? 'flex' : 'none';
+    }
+}
+
+/**
+ * Navigate to previous memory
+ */
+function navigateToPreviousMemory() {
+    if (currentMemoryIndex > 0) {
+        const previousMemory = currentMemoryList[currentMemoryIndex - 1];
+        openMemoryModal(previousMemory, currentMemoryList, currentMemoryIndex - 1);
+    }
+}
+
+/**
+ * Navigate to next memory
+ */
+function navigateToNextMemory() {
+    if (currentMemoryIndex < currentMemoryList.length - 1) {
+        const nextMemory = currentMemoryList[currentMemoryIndex + 1];
+        openMemoryModal(nextMemory, currentMemoryList, currentMemoryIndex + 1);
+    }
+}
+
+/**
+ * Close modal with animation
+ */
+function closeModal() {
+    const modal = document.getElementById('memory-modal');
+    modal.classList.add('closing');
+    
+    // Wait for animation to complete before hiding
+    setTimeout(() => {
+        modal.classList.remove('show', 'closing');
+    }, 250);
+}
+
+/**
  * Setup modal close functionality
  */
 function setupModal() {
     const modal = document.getElementById('memory-modal');
     const closeBtn = document.getElementById('modal-close-btn');
+    const prevBtn = document.getElementById('modal-prev-btn');
+    const nextBtn = document.getElementById('modal-next-btn');
     
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
-            modal.classList.remove('show');
+            closeModal();
         });
     }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateToPreviousMemory();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateToNextMemory();
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (modal.classList.contains('show')) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                navigateToPreviousMemory();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                navigateToNextMemory();
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+    });
     
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target.id === 'memory-modal') {
-                modal.classList.remove('show');
+                closeModal();
             }
         });
     }
