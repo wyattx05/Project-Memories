@@ -117,6 +117,8 @@ python python/add_location_names.py <memories-folder>
 - Uses OpenStreetMap's Nominatim for location data
 - Built with Electron for cross-platform compatibility
 
+### if you have any questions or concerns please feel free to email me - whanderson024@gmail.com
 ---
+if you have any questions or concerns please feel free to email me - whanderson024@gmail.com
 
 **Note:** This is an independent project and is not affiliated with Snapchat Inc.
