@@ -4,6 +4,9 @@ With Snapchat now making you pay to store your memories, I wanted to create an e
 
 This repository includes Python scripts to download and curate your memories (preserving all metadata and captions) plus an Electron desktop app that provides a Snapchat-like interface for browsing your saved memories offline.
 
+## Update June 2026
+Currently working on downloading all of my memories, I have noticed some changes when requesting data and plan to update this soon once!
+
 ## ✨ Features
 
 - 📱 **Snapchat-Like Interface** - Familiar dark & light mode UI
